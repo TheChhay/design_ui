@@ -23,7 +23,6 @@ class RowCategory extends StatelessWidget {
     );
   }
 
-  @override
   Widget _item({String? name, bool? isSelected = false}) {
     return Padding(
       padding: const EdgeInsets.all(5),

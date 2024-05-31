@@ -31,7 +31,7 @@ class _StartingPageState extends State<StartingPage> {
   void initState() {
     super.initState();
     Timer(
-      const Duration(milliseconds: 50),
+      const Duration(milliseconds: 3000),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -98,7 +98,7 @@ class _StartingPageState extends State<StartingPage> {
           SizedBox(
             height: 300,
             width: 300,
-            child: Image.asset('assets/images/Slay.png'),
+            child: Image.asset('assets/images/saly.png'),
           ),
           const Text(
             'Code Delivery!',
