@@ -96,8 +96,8 @@ class _StartingPageState extends State<StartingPage> {
             ],
           ),
           SizedBox(
-            height: 300,
-            width: 300,
+            height: 200,
+            width: 200,
             child: Image.asset('assets/images/saly.png'),
           ),
           const Text(
