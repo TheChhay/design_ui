@@ -1,59 +1,66 @@
+import 'package:design_ui/features/home/controller/home_controller.dart';
+import 'package:design_ui/features/home/widgets/product_detail.dart';
+import 'package:design_ui/model/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ListFood extends StatelessWidget {
-  const ListFood({super.key});
+  ListFood({super.key});
+  HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 500,
-      child: Column(
-        children: [
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: [
-                _cardFood(context, price: 100, title: 'Pizza'),
-                _cardFood(context, price: 100, title: 'Pizza'),
-                _cardFood(context, price: 100, title: 'Pizza'),
-                _cardFood(context, price: 100, title: 'Pizza'),
-                _cardFood(context, price: 100, title: 'Pizza'),
-              ],
-            ),
-          ),
-        ],
-      ),
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+      itemCount: controller.dataProduct.length,
+      itemBuilder: (context, index) {
+        return _cardFood(context, controller.dataProduct[index]);
+      },
     );
   }
 
-  Widget _cardFood(BuildContext context, {String? img, int? price, String? title, VoidCallback? onPress}) {
+  Widget _cardFood(BuildContext context, Product product) {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2.1,
-      child: InkWell(
-        onTap: onPress,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetail(product: product),
+            ),
+          );
+        },
         child: Column(
           children: [
             SizedBox(
               height: 150, // Fixed height for image container
-              width: MediaQuery.of(context).size.width / 2.2,
-              child: img == null ? Container(color: Colors.grey) : Image.asset(img),
+              width: MediaQuery.of(context).size.width / 2.5,
+              child: product.imageUrl != ''
+                  ? Image.asset(product.imageUrl!) 
+                  : Container(color: Colors.grey),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            SizedBox(height: 10,),
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 2.5,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween, // Ensure proper spacing
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween, // Ensure proper spacing
                 children: [
                   Text(
-                    title!,
-                    style: const TextStyle(fontSize: 20),
+                    '\$${product.price.toString()}',
+                    style: const TextStyle(fontSize: 16),
                   ),
                   Text(
-                    '\$${price!.toString()}',
-                    style: const TextStyle(fontSize: 20),
+                    product.name ?? 'name not available',
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ],
               ),
+            ),
+            Text(
+              product.description ?? 'Description not available',
+              style: const TextStyle(fontSize: 12),
             ),
           ],
         ),
@@ -61,4 +68,3 @@ class ListFood extends StatelessWidget {
     );
   }
 }
-

@@ -1,6 +1,7 @@
 import 'package:design_ui/features/home/widgets/list_food.dart';
 import 'package:design_ui/features/home/widgets/row_category.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -21,18 +22,23 @@ class HomePage extends StatelessWidget {
               icon: const Icon(Icons.filter_alt_outlined), onPressed: () {})
         ],
       ),
-      body:  const SafeArea(
+      body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                RowCategory(),
-                ListFood(),
+                const RowCategory(),
+                // SizedBox(height: 20,),
+                // ListFood(),
+                Text('hgvg')
               ],
             ),
-                ),
-              ),
+          ),
+        ),
       ),
     );
   }

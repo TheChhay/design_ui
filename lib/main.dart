@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:design_ui/features/home/home_page.dart';
+import 'package:design_ui/features/home/widgets/list_food.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,8 +14,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: StartingPage(),
+    return  GetMaterialApp(
+      home: ListFood(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -31,7 +33,7 @@ class _StartingPageState extends State<StartingPage> {
   void initState() {
     super.initState();
     Timer(
-      const Duration(milliseconds: 3000),
+      const Duration(milliseconds: 2000),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -98,7 +100,11 @@ class _StartingPageState extends State<StartingPage> {
           SizedBox(
             height: 200,
             width: 200,
+<<<<<<< HEAD
             child: Image.asset('assets/images/saly.png'),
+=======
+            child: Image.asset('images/Saly.png', fit: BoxFit.cover),
+>>>>>>> 3c4d468e5b19507d90d8d42577980130fedaf66e
           ),
           const Text(
             'Code Delivery!',
