@@ -18,5 +18,5 @@ dev_dependencies:
 
 flutter:
   assets:
-    - assets/
+    - assets\images\Saly.png
   uses-material-design: true
