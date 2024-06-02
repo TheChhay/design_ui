@@ -18,8 +18,8 @@ class HomePage extends StatelessWidget {
               print('searching...');
             },
           ),
-          IconButton(
-              icon: const Icon(Icons.filter_alt_outlined), onPressed: () {})
+          // IconButton(
+          //     icon: const Icon(Icons.filter_alt_outlined), onPressed: () {})
         ],
       ),
       body: SafeArea(
@@ -33,8 +33,8 @@ class HomePage extends StatelessWidget {
               children: [
                 const RowCategory(),
                 // SizedBox(height: 20,),
-                // ListFood(),
-                Text('hgvg')
+                ListFood(),
+                // Text('hgvg')
               ],
             ),
           ),

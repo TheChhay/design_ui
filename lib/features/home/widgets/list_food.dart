@@ -10,12 +10,17 @@ class ListFood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-      itemCount: controller.dataProduct.length,
-      itemBuilder: (context, index) {
-        return _cardFood(context, controller.dataProduct[index]);
-      },
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 20),
+      height: MediaQuery.of(context).size.height,
+      child: GridView.builder(
+        key: ValueKey(controller.dataProduct),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemCount: controller.dataProduct.length,
+        itemBuilder: (context, index) {
+          return _cardFood(context, controller.dataProduct[index]);
+        },
+      ),
     );
   }
 
@@ -40,7 +45,7 @@ class ListFood extends StatelessWidget {
                   ? Image.asset(product.imageUrl!) 
                   : Container(color: Colors.grey),
             ),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2.5,
               child: Row(
@@ -49,18 +54,14 @@ class ListFood extends StatelessWidget {
                 children: [
                   Text(
                     '\$${product.price.toString()}',
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
                   ),
                   Text(
                     product.name ?? 'name not available',
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 14),
                   ),
                 ],
               ),
-            ),
-            Text(
-              product.description ?? 'Description not available',
-              style: const TextStyle(fontSize: 12),
             ),
           ],
         ),

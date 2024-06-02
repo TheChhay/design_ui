@@ -14,8 +14,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  GetMaterialApp(
-      home: ListFood(),
+    return  const GetMaterialApp(
+      home: StartingPage(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -100,11 +100,7 @@ class _StartingPageState extends State<StartingPage> {
           SizedBox(
             height: 200,
             width: 200,
-<<<<<<< HEAD
-            child: Image.asset('assets/images/saly.png'),
-=======
-            child: Image.asset('images/Saly.png', fit: BoxFit.cover),
->>>>>>> 3c4d468e5b19507d90d8d42577980130fedaf66e
+            child: Image.asset('assets/images/saly.png', fit: BoxFit.cover),
           ),
           const Text(
             'Code Delivery!',

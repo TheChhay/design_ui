@@ -14,19 +14,60 @@ class ProductDetail extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
+        title: Text(product.name!),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child:product.imageUrl != ''
-                  ? Image.asset(product.imageUrl!) 
-                  : Container(color: Colors.grey),
-          ),
-            Text(product.name!),
-            Text('${product.price}'),
-            Text('${product.description}'),
-        ]
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 200,
+              width: MediaQuery.of(context).size.width,
+              child: product.imageUrl != ''
+                  ? Image.asset(
+                      product.imageUrl!,
+                      fit: BoxFit.cover,
+                    )
+                  : Container(
+                      color: Colors.grey,
+                    ),
+            ),
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Product name: ${product.name!}',
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                    Row(
+                      children: [
+                        const Text(
+                          'Price: ',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          '\$ ${product.price}',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      'Description: ${product.description}',
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            TextButton(onPressed: (){}, child: Text('Buy now!'))
+          ],
+        ),
       ),
     );
   }
