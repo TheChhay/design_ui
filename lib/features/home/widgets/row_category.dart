@@ -13,68 +13,20 @@ class RowCategory extends StatefulWidget {
 
 class _RowCategoryState extends State<RowCategory> {
   HomeController controller = Get.put(HomeController());
-  List<CategoryModel> prictItems = [];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      height: 60,
-      width: MediaQuery.of(context).size.width,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          ...List.generate(
-              controller.categories.length,
-              (index) => _item(
-                    category: controller.categories[index],
-                    onSelected: (bool value) {
-                      if (value) {
-                        prictItems.add(controller.categories[index]);
-                      } else {
-                        prictItems.remove(controller.categories[index]);
-                      }
-                    },
-                  ))
-        ],
-      ),
+    return TabBar(
+      isScrollable: true,
+      indicatorColor: Colors.yellow,
+      unselectedLabelColor: Colors.black,
+      tabs: [
+        Tab(child: Text(controller.categories[0].name!),),
+        Tab(child: Text(controller.categories[1].name!),),
+        Tab(child: Text(controller.categories[2].name!),),
+        Tab(child: Text(controller.categories[3].name!),),
+        Tab(child: Text(controller.categories[4].name!),),
+      ],
     );
   }
 
-  Widget _item({CategoryModel? category, ValueChanged<bool>? onSelected}) {
-    bool _isSelected = false;
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _isSelected = !_isSelected;
-          onSelected!(_isSelected);
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(5),
-        child: Container(
-          alignment: Alignment.center,
-          width: 100,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.2),
-                spreadRadius: 1,
-                blurRadius: 8,
-                offset: const Offset(1, 2),
-              ),
-            ],
-            borderRadius: BorderRadius.circular(10),
-            color: _isSelected ? Colors.yellow : Colors.grey.shade200,
-          ),
-          child: Text(
-            category!.name!,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }

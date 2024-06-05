@@ -6,49 +6,61 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
+  HomePage({super.key});
+  HomeController controller = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Menu'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showSearch(
-                context: context,
-                delegate: _customSearchDelegate(),
-              );
-            },
-            icon: const Icon(Icons.search),
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Categories',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-              ),
-                  const RowCategory(),
-                  Container(
-                      child: const Text(
-                    'Products',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                  )),
-                  // ListFood(),
+      // appBar: AppBar(
+      //   title: const Text('Menu'),
+
+      // ),
+      body: DefaultTabController(
+        length: controller.categories.length,
+        initialIndex: 0,
+        child: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                title: const Text(
+                  'Delivery codes',
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+                ),
+                backgroundColor: Colors.yellow,
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      showSearch(
+                        context: context,
+                        delegate: _customSearchDelegate(),
+                      );
+                    },
+                    icon: const Icon(Icons.search),
+                  ),
                 ],
+                pinned: true,
+              ),
+              const SliverToBoxAdapter(
+                  child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Text('Category',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+              )),
+              const SliverToBoxAdapter(
+                child: RowCategory(),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: ListFood(),
+                ),
               )
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
 }
 

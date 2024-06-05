@@ -28,9 +28,13 @@ class ProductDetail extends StatelessWidget {
                       product.imageUrl!,
                       fit: BoxFit.cover,
                     )
-                  : Container(
-                      color: Colors.grey,
-                    ),
+                  : ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Container(
+                      height: 200,
+                        color: Colors.grey,
+                      ),
+                  ),
             ),
             Row(
               children: [

@@ -15,7 +15,8 @@ class ListFood extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       child: GridView.builder(
         key: ValueKey(controller.dataProduct),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemCount: controller.dataProduct.length,
         itemBuilder: (context, index) {
           return _cardFood(context, controller.dataProduct[index]);
@@ -42,10 +43,15 @@ class ListFood extends StatelessWidget {
               height: 150, // Fixed height for image container
               width: MediaQuery.of(context).size.width / 2.5,
               child: product.imageUrl != ''
-                  ? Image.asset(product.imageUrl!) 
-                  : Container(color: Colors.grey),
+                  ? Image.asset(product.imageUrl!)
+                  : ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                      child: Container(color: Colors.grey),
+                    ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2.5,
               child: Row(
@@ -54,7 +60,8 @@ class ListFood extends StatelessWidget {
                 children: [
                   Text(
                     '\$${product.price.toString()}',
-                    style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     product.name ?? 'name not available',

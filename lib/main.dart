@@ -37,7 +37,7 @@ class _StartingPageState extends State<StartingPage> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const HomePage(),
+          builder: (context) => HomePage(),
         ),
       ),
     );
