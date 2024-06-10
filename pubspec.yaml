@@ -10,6 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
   get: ^4.6.6
+  google_nav_bar: ^5.0.6
+  # location: ^6.0.2
 
 dev_dependencies:
   flutter_test:
@@ -18,5 +20,5 @@ dev_dependencies:
 
 flutter:
   assets:
-    - assets/images/saly.png
+    - assets/images/
   uses-material-design: true

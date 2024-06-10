@@ -1,7 +1,7 @@
 import 'dart:async';
-
+// import 'package:location/location.dart';
 import 'package:design_ui/features/home/home_page.dart';
-import 'package:design_ui/features/home/widgets/list_food.dart';
+import 'package:design_ui/features/layout/default_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,9 +9,10 @@ void main() {
   runApp(const MainApp());
 }
 
+
+
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return  const GetMaterialApp(
@@ -37,7 +38,7 @@ class _StartingPageState extends State<StartingPage> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => HomePage(),
+          builder: (context) => const DefaultLayout(),
         ),
       ),
     );
@@ -100,7 +101,7 @@ class _StartingPageState extends State<StartingPage> {
           SizedBox(
             height: 200,
             width: 200,
-            child: Image.asset('assets/images/saly.png', fit: BoxFit.cover),
+            child: Image.asset('assets/images/Saly.png', fit: BoxFit.cover),
           ),
           const Text(
             'Code Delivery!',
