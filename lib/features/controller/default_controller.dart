@@ -20,35 +20,35 @@ class DefaultController extends GetxController {
     Product(
         id: 1,
         name: 'Product 1',
-        price: 10000,
+        price: 10,
         imageUrl: '',
         description: 'abf',
         categoryId: 2),
     Product(
         id: 2,
         name: 'Product 2',
-        price: 20000,
+        price: 20,
         imageUrl: '',
         description: 'abf',
         categoryId: 2),
     Product(
         id: 3,
         name: 'Product 3',
-        price: 30000,
+        price: 30,
         imageUrl: '',
         description: 'abf',
         categoryId: 3),
     Product(
         id: 4,
         name: 'Product 4',
-        price: 40000,
+        price: 40,
         imageUrl: '',
         description: 'abf',
         categoryId: 2),
     Product(
         id: 5,
         name: 'Product 5',
-        price: 50000,
+        price: 50,
         imageUrl: '',
         description: 'abf',
         categoryId: 3),
@@ -62,29 +62,5 @@ class DefaultController extends GetxController {
 
   //order
   List<Product> orderProducts = <Product>[].obs;
-
-  void increaseQty({required Product product}){
-    int index = orderProducts.indexWhere((p) => p.id == product.id);
-
-    if (index != -1) {
-      // Product exists in the list, increase its quantity
-      orderProducts[index].qty = orderProducts[index].qty! + 1;
-    } else {
-      // Product does not exist in the list, add it with quantity 1
-      product.qty = 1;
-      orderProducts.add(product);
-    }
-  }
-
-  void decreaseQty({required Product product}){
-    int index = orderProducts.indexWhere((p) => p.id == product.id);
-    if (index != -1) {
-      // Product exists in the list, decrease its quantity
-      orderProducts[index].qty = orderProducts[index].qty! - 1;
-    } else {
-      // Product does not exist in the list, add it with quantity 1
-      // product.qty = 1;
-      orderProducts.remove(product);
-    }
-  }
+  List<Product> historyProducts = <Product>[].obs;
 }

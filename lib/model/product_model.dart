@@ -7,16 +7,18 @@ class Product {
   final double? price;
   final String? imageUrl;
   final int? categoryId;
+  String? orderDate;
 
   Product({
     this.id,
     this.name,
     this.qty=0,
-    this.amount,
+    this.amount=0,
     this.description,
     this.price,
     this.imageUrl,
     this.categoryId,
+    this.orderDate,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class Product {
       price: json['price'].toDouble(),
       imageUrl: json['imageUrl'],
       categoryId: json['categoryId'],
+      orderDate: json['orderDate'],
     );
   }
 }
