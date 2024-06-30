@@ -13,6 +13,7 @@ class HistoryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
+        title: Text('History'),
       ),
       body: controller.historyProducts.length > 0 ? Container(
         width: MediaQuery.of(context).size.width,
