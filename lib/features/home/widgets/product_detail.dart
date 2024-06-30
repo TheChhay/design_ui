@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:design_ui/model/product_model.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class ProductDetail extends StatefulWidget {
   final Product product;
@@ -16,6 +17,46 @@ class ProductDetail extends StatefulWidget {
 
   @override
   State<ProductDetail> createState() => _ProductDetailState();
+}
+
+void _showMessage(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Message'),
+        content: const Text(
+          'Please add Quantity. Thanks!',
+          style: TextStyle(fontSize: 16),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal:15),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.yellow),
+                child: const Text('OK', style: TextStyle(color: Colors.black),)),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void _showPopup(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        Navigator.of(context).pop(true);
+      });
+      return LottieBuilder.asset('assets/animation/loading.json');
+    },
+  );
 }
 
 class _ProductDetailState extends State<ProductDetail> {
@@ -101,8 +142,8 @@ class _ProductDetailState extends State<ProductDetail> {
                         Row(
                           children: [
                             Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(horizontal: 5),
                               decoration: BoxDecoration(
                                   color: Colors.yellow,
                                   borderRadius: BorderRadius.circular(15)),
@@ -128,8 +169,8 @@ class _ProductDetailState extends State<ProductDetail> {
                                   }),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(horizontal: 5),
                               decoration: BoxDecoration(
                                   color: Colors.yellow,
                                   borderRadius: BorderRadius.circular(15)),
@@ -163,29 +204,37 @@ class _ProductDetailState extends State<ProductDetail> {
             ),
             TextButton(
               onPressed: () {
+                if (widget.product.qty == 0) {
+                  _showMessage(context);
+                } else {
                   int index = controller.orderProducts.indexOf(widget.product);
-                  if(index != -1){
+                  if (index != -1) {
                     controller.orderProducts[index] = widget.product;
-                  }else{
+                  } else {
                     controller.orderProducts.add(widget.product);
                   }
-                print(controller.orderProducts.length);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DefaultLayout(),
-                  ),
-                );
+                  print(controller.orderProducts.length);
+                  Navigator.pop(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DefaultLayout(),
+                    ),
+                  );
+                  _showPopup(context);
+                }
               },
               child: Container(
-                padding: const EdgeInsets.all(15),
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.all(10),
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.yellow),
                 child: const Text(
                   'Order now!',
                   style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.w500,
                       color: Colors.black),
                 ),

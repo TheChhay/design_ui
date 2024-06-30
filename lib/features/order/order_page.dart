@@ -4,9 +4,22 @@ import 'package:design_ui/features/layout/default_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
+
 class OrderPage extends StatelessWidget {
   OrderPage({super.key});
   final DefaultController controller = Get.put(DefaultController());
+  void _showPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(const Duration(milliseconds: 1500), () {
+          Navigator.of(context).pop(true);
+        });
+        return LottieBuilder.asset('assets/animation/success.json');
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,60 +98,74 @@ class OrderPage extends StatelessWidget {
                 }),
               ),
               const Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                      color: Colors.yellow,
-                      borderRadius: BorderRadius.circular(15)),
-                  child: controller.orderProducts.isEmpty
-                      ? TextButton(
-                          child: const Text(
-                            'Order somethings...🤤😝',
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const DefaultLayout(),
+              Obx(()=>
+                 Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                        color: Colors.yellow,
+                        borderRadius: BorderRadius.circular(15)),
+                    child: controller.orderProducts.isEmpty
+                        ? Container(
+                          padding: const EdgeInsets.all(10),
+                          width: MediaQuery.of(context).size.width,
+                          child: TextButton(
+                              child: const Text(
+                                'Order somethings...🤤😝',
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
                               ),
-                            );
-                          },
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const DefaultLayout(),
+                                  ),
+                                );
+                              },
+                            ),
                         )
-                      : TextButton(
-                          child: const Text(
-                            'Check out now',
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
+                        : TextButton(
+                            child: Container(
+                              alignment: Alignment.center,
+                          padding: const EdgeInsets.all(10),
+                              width: MediaQuery.of(context).size.width,
+                              child: const Text(
+                                'Check out now',
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                              ),
+                            ),
+                            onPressed: () {
+                              DateTime now = DateTime.now();
+                              controller.historyProducts.addAll(controller.orderProducts);
+                              for (int i = 0;
+                                  i < controller.historyProducts.length;
+                                  i++) {
+                                String? formattedDate =
+                                    DateFormat('yyyy-MMM-dd h:mma').format(now);
+                                formattedDate = formattedDate
+                                    .replaceFirst('AM', 'am')
+                                    .replaceFirst('PM', 'pm');
+                                controller.historyProducts[i].orderDate =
+                                    formattedDate;
+                              }
+                              controller.orderProducts.clear();
+                              for (int i = 0;
+                                  i < controller.dataProduct.length;
+                                  i++) {
+                                controller.dataProduct[i].qty = 0;
+                                // controller.orderProducts[i].amount = 0;
+                              }
+                              _showPopup(context);
+                            },
                           ),
-                          onPressed: () {
-                            DateTime now = DateTime.now();
-                            controller.historyProducts =
-                                List.from(controller.orderProducts);
-                            for (int i = 0;
-                                i < controller.historyProducts.length;
-                                i++) {
-                              String? formattedDate =
-                                  DateFormat('yyyy-MMM-dd h:mma').format(now);
-                              formattedDate = formattedDate
-                                  .replaceFirst('AM', 'am')
-                                  .replaceFirst('PM', 'pm');
-                              controller.historyProducts[i].orderDate = formattedDate;
-                            }
-                            controller.orderProducts.clear();
-                            for(int i=0; i<controller.dataProduct.length; i++){
-                              controller.dataProduct[i].qty = 0;
-                              // controller.orderProducts[i].amount = 0;
-                            }
-                          },
-                        ),
+                  ),
                 ),
               ),
             ],

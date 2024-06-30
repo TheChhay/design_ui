@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   DefaultController controller = Get.put(DefaultController());
 //  final Location location = Location();
   int? selectedCategoryId;
+  final ScrollController scrollController = ScrollController();
   @override
   void initState() {
     // TODO: implement initState
@@ -119,10 +120,10 @@ class _customSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    List<String> matchQuery = [];
+    List matchQuery = [];
     for (var i in controller.dataProduct) {
       if (i.name!.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(i.name!);
+        matchQuery.add(i);
       }
     }
     return ListView.builder(
@@ -130,14 +131,17 @@ class _customSearchDelegate extends SearchDelegate {
         itemBuilder: (context, index) {
           var result = matchQuery[index];
           return ListTile(
-            title: Text(result),
+            title: Text(result.name),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      ProductDetail(product: controller.dataProduct[index]),
-                ),
+                  builder: (context) {
+                    int index = controller.dataProduct.indexOf(result);
+                    print(index);
+                    return ProductDetail(product: controller.dataProduct[index]);
+                  }
+                )
               );
             },
           );
@@ -146,10 +150,10 @@ class _customSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<String> matchQuery = [];
+    List matchQuery = [];
     for (var i in controller.dataProduct) {
       if (i.name!.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(i.name!);
+        matchQuery.add(i);
       }
     }
     return ListView.builder(
@@ -157,13 +161,16 @@ class _customSearchDelegate extends SearchDelegate {
         itemBuilder: (context, index) {
           var result = matchQuery[index];
           return ListTile(
-            title: Text(result),
+            title: Text(result.name),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      ProductDetail(product: controller.dataProduct[index]),
+                  builder: (context) {
+                    int index = controller.dataProduct.indexOf(result);
+                    print(index);
+                    return ProductDetail(product: controller.dataProduct[index]);
+                  }
                 ),
               );
             },
